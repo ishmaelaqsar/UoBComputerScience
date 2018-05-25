@@ -1,0 +1,103 @@
+1) Create Tables
+
+CREATE TABLE albums (
+  id   INTEGER PRIMARY KEY,
+  name TEXT,
+  UNIQUE (id)
+);
+
+CREATE TABLE artists (
+  id   INTEGER PRIMARY KEY,
+  name TEXT,
+  UNIQUE (id)
+);
+
+CREATE TABLE songs (
+  id     INTEGER PRIMARY KEY,
+  title  TEXT,
+  artist INTEGER REFERENCES artists (id),
+  album  INTEGER REFERENCES albums (id),
+  UNIQUE (title)
+);
+
+CREATE TABLE tags (
+  song INTEGER REFERENCES songs (id),
+  tag  TEXT,
+  UNIQUE (song)
+);
+
+
+4) How many albums are listed?
+
+SELECT COUNT(DISTINCT id) FROM albums;
+
+492
+
+5) How many albums are funk rock ones?
+
+SELECT COUNT(DISTINCT album) FROM albums 
+JOIN songs ON albums.id = songs.id 
+JOIN tags ON songs.id = tags.songid 
+WHERE tag LIKE '%funk rock%';
+
+24
+
+6) List, in alphabetical order, all the artists who have tracks regarded as 'new wave'
+
+SELECT DISTINCT name FROM artists 
+JOIN songs ON artists.id = songs.id JOIN tags ON songs.id = tags.song 
+WHERE tag LIKE '%new wave%'ORDER BY name ASC;
+
+1. BEASTIE BOYS
+2. BLONDIE
+3. CLASH
+4. COLDPLAY
+5. CURE
+6. DEBORAH HARRY
+7. DEEP PURPLE
+8. DEPECHE MODE
+9. EURYTHMICS
+10. FRANZ FERDINAND
+11. JACKSON FIVE
+12. JAM
+13. JEFF BUCKLEY
+14. LOU REED
+15. NEW ORDER
+16. NIRVANA
+17. PATTI SMITH
+18. PIXIES
+19. POLICE
+20. RADIOHEAD
+21. R.E.M.
+22. VELVET UNDERGROUND
+23. VERVE
+24. WEEZER
+25. YEAH YEAH YEAHS
+
+7) What is the numerical difference between songs with "love" in the title and those that are tagged with "love" that don't have it in the title?
+
+SELECT COUNT(title) FROM songs 
+JOIN tags ON tags.song = songs.id 
+WHERE title NOT LIKE ‘%LOVE%’ AND tag LIKE ‘%love%’;
+
+34
+
+8) How many albums have at least one song with 'dog' in the title?
+
+SELECT COUNT(distinct name) 
+WHERE album JOIN songs ON songs.id = album.id 
+WHERE title LIKE ‘%DOG%’;
+
+7
+
+9) Are there more rhythmic songs than playful ones?
+
+SELECT COUNT(id) FROM songs 
+JOIN tags ON tags.song = songs.id 
+WHERE tag LIKE ‘%rhythmic%’;
+
+SELECT COUNT(id) FROM songs 
+JOIN tags ON tags.song = songs.id 
+WHERE tag LIKE ‘%playful%’;
+
+Yes, there are more rythmic songs.

@@ -1,0 +1,42 @@
+/**
+ * Program to compute the angle between the hour hand and minute hand of an analogue clock.
+ * The angles are measured anti-clockwise from the hour hand
+*/
+
+import java.util.Scanner;
+
+public class ClockAngle 
+{
+
+    public static void main(String[] args)
+    {
+	Scanner input = new Scanner(System.in); //declare scanner object
+	
+	int hours, minutes;
+	double angle;
+
+	System.out.println("Enter the current time");
+	System.out.print("Hours: ");
+	hours = input.nextInt();
+	System.out.print("Minutes: ");
+	minutes = input.nextInt();
+
+	if (hours < 12 && hours >= 0) //keep in 24 hour format
+	    {
+		angle = (hours*30) + ((minutes*6));
+	    }
+	else if (hours >=12 && hours <24)
+	    {
+		angle = (hours*30) + (minutes*6) - 360;
+	    }
+	else 
+	    {
+		System.out.println("Invalid time");
+		return;
+	    }
+
+	System.out.printf("The angle is %.0f degrees.%n", angle);
+	
+    }//end of main
+
+}//end of class ClockAngle

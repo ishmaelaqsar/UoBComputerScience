@@ -1,0 +1,16 @@
+/**
+*Program to add and multiply fractions
+*/
+
+public class fraction_comp {
+	
+	public static void main(String[] args) {
+		
+		int e1=1, e2=1, d1=2, d2=3;
+		int ds = d1*d2;
+		int es = (e1*d2)+(e2*d1);
+		int ep = e1*e2;
+		System.out.println(e1+"/"+d1+" + "+e2+"/"+d2+" = "+es+"/"+ds);
+		System.out.println(e1+"/"+d1+" * "+e2+"/"+d2+" = "+ep+"/"+ds);
+	}
+}
